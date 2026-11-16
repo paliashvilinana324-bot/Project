@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="ka" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ქიმიური რეაქციის სიჩქარე და ქიმიური წონასწორობა | X კლასი (ესგ)</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0f9ff',
+              100: '#e0f2fe',
+              500: '#0ea5e9',
+              600: '#0284c7',
+              700: '#0369a1',
+              900: '#0c4a6e',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts: Noto Sans Georgian -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+Georgian:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-[#0b1120] text-slate-100 flex flex-col min-h-screen">
+
+  <!-- Top Announcement / Curriculum Banner -->
+  <aside aria-label="ეროვნული სასწავლო გეგმის სტანდარტი" class="bg-gradient-to-r from-sky-950/80 via-indigo-950/80 to-slate-900 border-b border-sky-500/20 py-1.5 px-4 text-xs">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+      <div class="flex items-center gap-2">
+        <span class="badge-curriculum">🇬🇪 ესგ სტანდარტი</span>
+        <span class="text-slate-300">ქიმია • X კლასი • ქიმიური კინეტიკა და წონასწორობა</span>
+      </div>
+      <div class="flex items-center gap-4 text-slate-400">
+        <span class="flex items-center gap-1">
+          <svg class="w-3.5 h-3.5 text-emerald-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+          კვლევაზე დაფუძნებული სწავლება (IBL)
+        </span>
+        <span class="hidden sm:inline text-slate-500">|</span>
+        <span class="flex items-center gap-1 text-slate-300">
+          🔒 არასრულწლოვანთა მონაცემები დაცულია
+        </span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Header -->
+  <header class="border-b border-slate-800 bg-slate-900/60 backdrop-blur-md sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 py-3.5 flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-500 to-indigo-600 flex items-center justify-center text-xl shadow-lg shadow-sky-500/20">
+          ⚗️
+        </div>
+        <div>
+          <h1 class="text-lg md:text-xl font-extrabold text-white tracking-tight flex items-center gap-2">
+            ქიმიური რეაქციის სიჩქარე და ქიმიური წონასწორობა
+          </h1>
+          <p class="text-xs text-sky-400 font-medium">სასწავლო-კვლევითი ინტერაქციული ლაბორატორია</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2.5">
+        <button id="btnOpenSafetyModal" class="btn-secondary text-xs">
+          <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+          უსაფრთხოების წესები
+        </button>
+      </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <div class="max-w-7xl mx-auto px-4">
+      <nav class="flex space-x-1 sm:space-x-2 border-t border-slate-800/80 overflow-x-auto py-2" aria-label="მოდულები">
+        <button data-tab-target="tab-theory" class="btn-tab active px-4 py-2 text-xs sm:text-sm rounded-lg font-semibold flex items-center gap-2 whitespace-nowrap">
+          <span>📖</span>
+          <span>1. თეორია და ენერგეტიკა</span>
+        </button>
+        <button data-tab-target="tab-simulator" class="btn-tab text-slate-400 bg-slate-800/40 px-4 py-2 text-xs sm:text-sm rounded-lg font-semibold flex items-center gap-2 whitespace-nowrap">
+          <span>⚛️</span>
+          <span>2. სიჩქარის სიმულატორი</span>
+        </button>
+        <button data-tab-target="tab-equilibrium" class="btn-tab text-slate-400 bg-slate-800/40 px-4 py-2 text-xs sm:text-sm rounded-lg font-semibold flex items-center gap-2 whitespace-nowrap">
+          <span>⚖️</span>
+          <span>3. ლე შატელიეს ლაბორატორია</span>
+        </button>
+        <button data-tab-target="tab-quiz" class="btn-tab text-slate-400 bg-slate-800/40 px-4 py-2 text-xs sm:text-sm rounded-lg font-semibold flex items-center gap-2 whitespace-nowrap">
+          <span>📝</span>
+          <span>4. ცოდნის შემოწმება</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6">
+
+    <!-- ========================================== -->
+    <!-- MODULE 1: თეორიული გზამკვლევი & ენერგეტიკული პროფილი -->
+    <!-- ========================================== -->
+    <section data-tab-panel="tab-theory" class="space-y-6">
+      
+      <!-- Welcome Hero / Inquiry Prompt -->
+      <div class="glass-panel p-6 border-l-4 border-l-sky-500 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        <div>
+          <span class="inline-block px-2.5 py-0.5 rounded-full bg-sky-950/80 text-sky-400 border border-sky-500/30 text-xs font-bold mb-2">
+            კვლევითი შეკითხვა
+          </span>
+          <h2 class="text-xl sm:text-2xl font-bold text-white mb-2">
+            რატომ არ მთავრდება მოლეკულათა ყველა დაჯახება ქიმიური რეაქციით?
+          </h2>
+          <p class="text-slate-300 text-sm max-w-3xl leading-relaxed">
+            ყოველ წამში ჭურჭელში მილიარდობით მოლეკულა ეჯახება ერთმანეთს, თუმცა რეაქცია მხოლოდ მცირე ნაწილში მიმდინარეობს. გაეცანით დაჯახებათა თეორიას, მართეთ ენერგეტიკული პროფილი და დააკვირდით, როგორ ცვლის კატალიზატორი აქტივაციის ენერგიას!
+          </p>
+        </div>
+        <div class="flex gap-2 shrink-0">
+          <button id="btnQuickStartSim" class="btn-primary text-xs sm:text-sm">
+            სიმულატორზე გადასვლა →
+          </button>
+        </div>
+      </div>
+
+      <!-- Theory Content & Interactive Energy Diagram Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+        <!-- Left Column: Core Concepts Cards (5 Cols) -->
+        <div class="lg:col-span-5 space-y-4">
+          
+          <!-- Concept Card 1: Collision Theory -->
+          <div class="glass-panel p-5">
+            <div class="flex items-center gap-2.5 mb-3 text-sky-400">
+              <span class="text-xl">💥</span>
+              <h3 class="font-bold text-base text-white">დაჯახებათა თეორია (Collision Theory)</h3>
+            </div>
+            <p class="text-sm text-slate-300 leading-relaxed mb-3">
+              იმისთვის, რომ მოლეკულებმა რეაქციაში შევიდნენ, აუცილებელია ორი ფუნდამენტური პირობის ერთდროული დაკმაყოფილება:
+            </p>
+            <ul class="space-y-2.5 text-xs sm:text-sm text-slate-300">
+              <li class="flex items-start gap-2 bg-slate-900/50 p-2.5 rounded-lg border border-slate-800">
+                <span class="text-sky-400 font-bold">1.</span>
+                <div>
+                  <strong class="text-white">სწორი სივრცითი ორიენტაცია:</strong> მოლეკულები ერთმანეთს უნდა შეეჯახონ აქტიური ატომების მხრიდან, რათა შესაძლებელი გახდეს ძველი ბმების გაწყვეტა.
+                </div>
+              </li>
+              <li class="flex items-start gap-2 bg-slate-900/50 p-2.5 rounded-lg border border-slate-800">
+                <span class="text-sky-400 font-bold">2.</span>
+                <div>
+                  <strong class="text-white">საკმარისი კინეტიკური ენერგია:</strong> ნაწილაკების ენერგია უნდა იყოს აქტივაციის ენერგიის ტოლი ან მეტი ($E \ge E_a$), რათა გადაილახოს ელექტრონული ღრუბლების განზიდვის ძალა.
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Concept Card 2: Activation Energy & Activated Complex -->
+          <div class="glass-panel p-5">
+            <div class="flex items-center gap-2.5 mb-3 text-amber-400">
+              <span class="text-xl">⛰️</span>
+              <h3 class="font-bold text-base text-white">აქტივაციის ენერგია ($E_a$) და კომპლექსი</h3>
+            </div>
+            <p class="text-sm text-slate-300 leading-relaxed">
+              <strong class="text-amber-300">აქტივაციის ენერგია ($E_a$)</strong> არის მინიმალური ენერგია, რომელიც საჭიროა რეაგენტების <em>აქტივირებულ კომპლექსად ($[A\cdots B]^\ddagger$)</em> გარდასაქმნელად.
+            </p>
+            <div class="mt-3 p-3 bg-amber-950/30 border border-amber-500/30 rounded-lg text-xs text-amber-200">
+              💡 <strong>კატალიზატორის ჯადოსნური ეფექტი:</strong> კატალიზატორი არ ცვლის რეაქციის სითბურ ეფექტს ($\Delta H$), ის ქმნის ახალ, ალტერნატიულ მექანიზმს და <strong>საგრძნობლად ამცირებს აქტივაციის ენერგიას ($E_a$)</strong>!
+            </div>
+          </div>
+
+          <!-- Orientation Interactive Demo Box -->
+          <div class="glass-panel p-5">
+            <h3 class="font-bold text-sm text-white mb-2 flex items-center justify-between">
+              <span>🎯 სივრცითი ორიენტაციის ტესტი</span>
+              <button id="btnTestOrientation" class="btn-secondary text-xs py-1 px-2.5">
+                დაჯახების ცდა 🎲
+              </button>
+            </h3>
+            <p class="text-xs text-slate-400 mb-3">დააჭირეთ ღილაკს, რათა სიმულაციურად შეამოწმოთ შემთხვევითი შეჯახების ორიენტაცია:</p>
+            <div id="orientationDemoBox">
+              <div class="p-3 rounded-lg bg-slate-900/60 border border-slate-800 text-xs text-slate-400 text-center">
+                დააჭირეთ „დაჯახების ცდას“ მოლეკულური შეჯახების შესამოწმებლად.
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right Column: Interactive Energy Diagram (7 Cols) -->
+        <div class="lg:col-span-7 space-y-4">
+          <div class="glass-panel p-5 flex flex-col h-full">
+            
+            <div class="flex flex-wrap items-center justify-between gap-3 mb-4 pb-3 border-b border-slate-800">
+              <div>
+                <h3 class="font-bold text-base text-white">ინტერაქციული ენერგეტიკული პროფილი</h3>
+                <p class="text-xs text-slate-400">რეაქციის კოორდინატი vs პოტენციური ენერგია</p>
+              </div>
+
+              <!-- Controls bar for diagram -->
+              <div class="flex flex-wrap items-center gap-2">
+                <div class="flex rounded-lg bg-slate-800/80 p-0.5 border border-slate-700">
+                  <button id="btnExothermic" class="px-3 py-1 rounded-md text-xs font-semibold bg-sky-600 text-white transition-all">
+                    ეგზოთერმული (ΔH < 0)
+                  </button>
+                  <button id="btnEndothermic" class="px-3 py-1 rounded-md text-xs font-semibold text-slate-300 hover:text-white transition-all">
+                    ენდოთერმული (ΔH > 0)
+                  </button>
+                </div>
+
+                <label class="flex items-center gap-2 text-xs bg-slate-800/80 px-3 py-1 rounded-lg border border-slate-700 cursor-pointer hover:border-emerald-500/50 transition-all">
+                  <input type="checkbox" id="diagramCatalystToggle" class="accent-emerald-500 w-4 h-4 rounded">
+                  <span class="text-emerald-400 font-semibold">⚡ კატალიზატორი</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Canvas Viewport -->
+            <div class="canvas-vessel relative flex-1 min-h-[360px] flex items-center justify-center">
+              <canvas id="energyDiagramCanvas"></canvas>
+            </div>
+
+            <!-- Reaction Progress Slider & Step-by-Step State -->
+            <div class="mt-4 pt-4 border-t border-slate-800/80 space-y-3">
+              <div class="flex items-center justify-between text-xs text-slate-400">
+                <span>საწყისი ნივთიერებები (რეაგენტები)</span>
+                <span class="text-amber-400 font-semibold">აქტივირებული კომპლექსი</span>
+                <span>საბოლოო პროდუქტები</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <input type="range" id="reactionCoordSlider" min="0" max="1" step="0.01" value="0" class="flex-1">
+                <button id="btnAnimateReaction" class="btn-secondary text-xs whitespace-nowrap py-1.5 px-3">
+                  ▶️ ანიმაცია
+                </button>
+              </div>
+              
+              <!-- State description banner -->
+              <div id="reactionStateDescription" class="p-3 rounded-lg bg-slate-900/60 border border-slate-800 text-xs text-slate-300">
+                <span class="text-sky-400 font-bold">1. საწყისი მდგომარეობა:</span> რეაგენტების მოლეკულები (A და B) მოძრაობენ თავისუფლად და უახლოვდებიან ერთმანეთს.
+              </div>
+
+              <!-- Dynamic Theory Explanation Note -->
+              <div id="diagramDynamicExplanation" class="p-3 rounded-lg bg-sky-950/30 border border-sky-500/20 text-xs">
+                <p class="text-slate-300"><strong class="text-amber-400">ეგზოთერმული რეაქცია ($\Delta H < 0$):</strong> საწყისი ნივთიერებების პოტენციური ენერგია მეტია პროდუქტების ენერგიაზე. ჭარბი ენერგია გამოიყოფა სითბოს სახით.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ========================================== -->
+    <!-- MODULE 2: რეაქციის სიჩქარის სიმულატორი (2D CANVAS) -->
+    <!-- ========================================== -->
+    <section data-tab-panel="tab-simulator" class="hidden space-y-6">
+
+      <!-- Header & Intro -->
+      <div class="glass-panel p-5 flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="badge-curriculum">ვირტუალური ექსპერიმენტი</span>
+            <h2 class="text-xl font-bold text-white">ქიმიური რეაქციის სიჩქარის 2D სიმულატორი</h2>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-300">
+            დააკვირდით მოლეკულურ დაჯახებებს რეალურ დროში: მართეთ ტემპერატურა, კონცენტრაცია, ზედაპირის ფართობი და კატალიზატორი!
+          </p>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button id="btnSimPlayPause" class="btn-primary text-xs sm:text-sm">
+            <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            შეჩერება
+          </button>
+          <button id="btnSimReset" class="btn-secondary text-xs sm:text-sm">
+            🔄 გადატვირთვა
+          </button>
+        </div>
+      </div>
+
+      <!-- Main Simulator Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+        <!-- Controls Column (4 Cols) -->
+        <div class="lg:col-span-4 space-y-4">
+          <div class="glass-panel p-5 space-y-5">
+            <h3 class="font-bold text-sm text-white flex items-center justify-between border-b border-slate-800 pb-2">
+              <span>🎛️ ცვლადების პანელი</span>
+              <span id="catalystActiveBadge" class="hidden text-[10px] uppercase font-extrabold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/40">
+                კატალიზატორი ჩართულია
+              </span>
+            </h3>
+
+            <!-- 1. Concentration Slider -->
+            <div class="space-y-1.5">
+              <div class="flex items-center justify-between text-xs">
+                <label for="simConcSlider" class="font-semibold text-slate-200">1. კონცენტრაცია (C):</label>
+                <span id="simConcValue" class="font-mono text-sky-400 font-bold">30 ნაწილაკი</span>
+              </div>
+              <input type="range" id="simConcSlider" min="10" max="60" step="5" value="30">
+              <p class="text-[11px] text-slate-400">ზრდის ნაწილაკთა სიმკვრივეს ჭურჭელში და დაჯახებათა სიხშირეს.</p>
+            </div>
+
+            <!-- 2. Temperature Slider -->
+            <div class="space-y-1.5">
+              <div class="flex items-center justify-between text-xs">
+                <label for="simTempSlider" class="font-semibold text-slate-200">2. ტემპერატურა (T):</label>
+                <span id="simTempValue" class="font-mono text-amber-400 font-bold">300 K (27°C)</span>
+              </div>
+              <input type="range" id="simTempSlider" min="200" max="750" step="25" value="300">
+              <p class="text-[11px] text-slate-400">ზრდის ნაწილაკების სიჩქარეს ($v \propto \sqrt{T}$) და იმ ნაწილაკების წილს, რომელთაც $E \ge E_a$.</p>
+            </div>
+
+            <!-- 3. Surface Area / Dispersion -->
+            <div class="space-y-1.5">
+              <label for="simSurfaceSelect" class="block text-xs font-semibold text-slate-200">3. ზედაპირის ფართობი (დაქუცმაცება):</label>
+              <select id="simSurfaceSelect" class="w-full bg-slate-900 border border-slate-700 text-slate-200 text-xs rounded-lg p-2.5 focus:border-sky-500 outline-none">
+                <option value="homogeneous">ერთგვაროვანი ფაზა (სრული კონტაქტი - აირადი/ხსნარი)</option>
+                <option value="solid_block">ჰეტეროგენული: მთლიანი მყარი ბლოკი (დაბალი ზედაპირი)</option>
+                <option value="solid_powder">ჰეტეროგენული: წვრილი ფხვნილი (მაღალი ზედაპირი)</option>
+              </select>
+              <p class="text-[11px] text-slate-400">მყარი ნივთიერების დაქუცმაცება ექსპონენციურად ზრდის კონტაქტის ზონას.</p>
+            </div>
+
+            <!-- 4. Catalyst Toggle -->
+            <div class="pt-2 border-t border-slate-800">
+              <label class="flex items-center justify-between p-3 rounded-xl bg-slate-900/60 border border-slate-800 hover:border-emerald-500/40 cursor-pointer transition-all">
+                <div class="flex items-center gap-2.5">
+                  <span class="text-xl">⚡</span>
+                  <div>
+                    <span class="text-xs font-bold text-white block">კატალიზატორის დამატება</span>
+                    <span class="text-[11px] text-slate-400">ამცირებს აქტივაციის ენერგიას ($E_a$)</span>
+                  </div>
+                </div>
+                <input type="checkbox" id="simCatalystToggle" class="accent-emerald-500 w-5 h-5 rounded">
+              </label>
+            </div>
+
+            <!-- Scientific inquiry tip -->
+            <div class="p-3 rounded-lg bg-sky-950/40 border border-sky-500/30 text-xs text-slate-300">
+              🔬 <strong>დააკვირდით:</strong> გაზარდეთ ტემპერატურა 600K-მდე და ჩართეთ კატალიზატორი. შეადარეთ მწვანე პროდუქტების წარმოქმნის სიჩქარე საწყისთან!
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Simulation Chamber & Real-time Graph (8 Cols) -->
+        <div class="lg:col-span-8 space-y-4">
+          
+          <!-- Particle Chamber Canvas -->
+          <div class="glass-panel p-4">
+            <div class="flex items-center justify-between mb-3 text-xs">
+              <div class="flex items-center gap-3">
+                <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-[#38bdf8] inline-block"></span> რეაგენტი A</span>
+                <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-[#f43f5e] inline-block"></span> რეაგენტი B</span>
+                <span class="flex items-center gap-1.5"><span class="w-3.5 h-3.5 rounded-full bg-[#10b981] inline-block shadow-sm shadow-emerald-400"></span> პროდუქტი AB</span>
+              </div>
+              <span class="text-slate-400 font-mono text-[11px]">რეაქცია: A + B → AB</span>
+            </div>
+
+            <div class="canvas-vessel">
+              <canvas id="particleCanvas"></canvas>
+            </div>
+
+            <!-- Live Collision Metrics Strip -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 mt-3 pt-3 border-t border-slate-800">
+              <div class="p-2.5 rounded-lg bg-slate-900/60 border border-slate-800 text-center">
+                <span class="text-[11px] text-slate-400 block">სულ დაჯახებები</span>
+                <span id="statTotalCollisions" class="text-sm sm:text-base font-bold font-mono text-white">0</span>
+              </div>
+              <div class="p-2.5 rounded-lg bg-slate-900/60 border border-slate-800 text-center">
+                <span class="text-[11px] text-emerald-400 block">ეფექტური დაჯახება</span>
+                <span id="statEffectiveCollisions" class="text-sm sm:text-base font-bold font-mono text-emerald-400">0</span>
+              </div>
+              <div class="p-2.5 rounded-lg bg-slate-900/60 border border-slate-800 text-center">
+                <span class="text-[11px] text-amber-400 block">ეფექტურობა</span>
+                <span id="statEfficiencyRate" class="text-sm sm:text-base font-bold font-mono text-amber-400">0.0%</span>
+              </div>
+              <div class="p-2.5 rounded-lg bg-slate-900/60 border border-slate-800 text-center">
+                <span class="text-[11px] text-sky-400 block">სიჩქარე (v)</span>
+                <span id="statInstantSpeed" class="text-sm sm:text-base font-bold font-mono text-sky-400">0.0 რეაქ/წმ</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dynamic Graph Canvas (Concentration vs Time) -->
+          <div class="glass-panel p-4">
+            <div class="flex items-center justify-between mb-2">
+              <h4 class="font-bold text-xs text-white flex items-center gap-1.5">
+                📈 კონცენტრაციის ცვლილება დროში (C vs t)
+              </h4>
+              <span class="text-[11px] text-slate-400">წარმოქმნილი პროდუქტი: <strong id="statProductCount" class="text-emerald-400">0</strong></span>
+            </div>
+            <div class="canvas-vessel">
+              <canvas id="rateGraphCanvas"></canvas>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ========================================== -->
+    <!-- MODULE 3: ქიმიური წონასწორობა და ლე შატელიეს ლაბორატორია -->
+    <!-- ========================================== -->
+    <section data-tab-panel="tab-equilibrium" class="hidden space-y-6">
+
+      <!-- Header & Intro -->
+      <div class="glass-panel p-5 flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="badge-curriculum">დინამიკური წონასწორობა</span>
+            <h2 class="text-xl font-bold text-white">ქიმიური წონასწორობა და ლე შატელიეს პრინციპი</h2>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-300">
+            „თუ წონასწორობაში მყოფ სისტემაზე მოვახდენთ გარე ზემოქმედებას (კონცენტრაციის, ტემპერატურის ან წნევის შეცვლა), წონასწორობა გადაიხრება იმ მიმართულებით, რომელიც შეასუსტებს ამ ზემოქმედებას.“
+          </p>
+        </div>
+
+        <!-- Reversible Reaction Selector -->
+        <div class="flex items-center gap-2">
+          <label for="leChatelierReactionSelect" class="text-xs text-slate-400">სისტემა:</label>
+          <select id="leChatelierReactionSelect" class="bg-slate-900 border border-slate-700 text-sky-400 font-semibold text-xs rounded-lg p-2 focus:border-sky-500 outline-none">
+            <option value="no2">2NO₂ (მურა) ⇌ N₂O₄ (უფერო) + 57.2 კჯ</option>
+            <option value="haber">N₂ + 3H₂ ⇌ 2NH₃ + 92.4 კჯ (ჰაბერის სინთეზი)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Main Equilibrium Lab Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+
+        <!-- Left Controls Column: Disturbing the Equilibrium (5 Cols) -->
+        <div class="lg:col-span-5 space-y-4">
+          <div class="glass-panel p-5 space-y-5">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+              <h3 class="font-bold text-sm text-white flex items-center gap-2">
+                <span>⚡ გარე ზემოქმედების პანელი</span>
+              </h3>
+              <button id="btnEquilMasterReset" class="text-xs text-slate-400 hover:text-white underline">
+                საწყისზე დაბრუნება
+              </button>
+            </div>
+
+            <!-- 1. Temperature Control -->
+            <div class="space-y-2">
+              <div class="flex items-center justify-between text-xs">
+                <span class="font-semibold text-slate-200">1. ტემპერატურა (T):</span>
+                <span id="dispEquilTemp" class="font-mono text-amber-400 font-bold">25°C</span>
+              </div>
+              <div class="grid grid-cols-3 gap-2">
+                <button id="btnEquilHeat" class="btn-secondary text-xs py-2 justify-center hover:border-rose-500/50 hover:text-rose-400">
+                  🔥 გათბობა (+25°)
+                </button>
+                <button id="btnEquilCool" class="btn-secondary text-xs py-2 justify-center hover:border-sky-500/50 hover:text-sky-400">
+                  ❄️ გაცივება (-25°)
+                </button>
+                <button id="btnEquilResetTemp" class="btn-secondary text-xs py-2 justify-center text-slate-400">
+                  25°C ნორმა
+                </button>
+              </div>
+              <p class="text-[11px] text-slate-400">პირდაპირი რეაქცია ეგზოთერმულია (გამოიყოფა სითბო).</p>
+            </div>
+
+            <!-- 2. Pressure Control (Piston) -->
+            <div class="space-y-2">
+              <div class="flex items-center justify-between text-xs">
+                <span class="font-semibold text-slate-200">2. წნევა / მოცულობა (Piston):</span>
+                <span id="dispEquilPressure" class="font-mono text-sky-400 font-bold">1.0 ატმ</span>
+              </div>
+              <div class="grid grid-cols-3 gap-2">
+                <button id="btnEquilIncPressure" class="btn-secondary text-xs py-2 justify-center hover:border-emerald-500/50 hover:text-emerald-400">
+                  ⬇️ წნევა ↑ (ჩაწევა)
+                </button>
+                <button id="btnEquilDecPressure" class="btn-secondary text-xs py-2 justify-center hover:border-amber-500/50 hover:text-amber-400">
+                  ⬆️ წნევა ↓ (აწევა)
+                </button>
+                <button id="btnEquilResetPressure" class="btn-secondary text-xs py-2 justify-center text-slate-400">
+                  1.0 ატმ ნორმა
+                </button>
+              </div>
+              <p class="text-[11px] text-slate-400">დააკვირდით აირთა მოლების რაოდენობას მარცხნივ და მარჯვნივ!</p>
+            </div>
+
+            <!-- 3. Concentration Changes -->
+            <div class="space-y-2">
+              <span class="text-xs font-semibold text-slate-200 block">3. კონცენტრაციის შეცვლა:</span>
+              <div class="grid grid-cols-2 gap-2 text-xs">
+                <button id="btnEquilAddReactant" class="btn-secondary py-2 justify-center text-sky-300">
+                  ➕ რეაგენტის დამატება
+                </button>
+                <button id="btnEquilRemoveReactant" class="btn-secondary py-2 justify-center text-slate-400">
+                  ➖ რეაგენტის ამოღება
+                </button>
+                <button id="btnEquilAddProduct" class="btn-secondary py-2 justify-center text-emerald-300">
+                  ➕ პროდუქტის დამატება
+                </button>
+                <button id="btnEquilRemoveProduct" class="btn-secondary py-2 justify-center text-slate-400">
+                  ➖ პროდუქტის ამოღება
+                </button>
+              </div>
+            </div>
+
+            <!-- 4. Catalyst -->
+            <div class="pt-2 border-t border-slate-800">
+              <button id="btnEquilAddCatalyst" class="w-full btn-secondary py-2.5 justify-center border-amber-500/40 text-amber-300 hover:bg-amber-950/30 text-xs font-bold">
+                ⚡ კატალიზატორის დამატება (შემოწმება)
+              </button>
+            </div>
+
+            <!-- Current Equilibrium Shift Badge -->
+            <div class="pt-2 flex items-center justify-between text-xs">
+              <span class="text-slate-400">მდგომარეობა:</span>
+              <span id="dispEquilShiftBadge" class="px-3 py-1 rounded-full text-xs font-bold bg-slate-700 text-slate-200 border border-slate-600">
+                წონასწორობა ცენტრშია (50:50)
+              </span>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Right Cylinder Vessel & Live Pedagogical Analysis (7 Cols) -->
+        <div class="lg:col-span-7 space-y-4">
+          
+          <!-- Vessel Container & Balance -->
+          <div class="glass-panel p-5">
+            <div class="flex items-center justify-between mb-3">
+              <h4 class="font-bold text-sm text-white flex items-center gap-2">
+                <span>🧪 სინჯარა-დგუშის კამერა</span>
+              </h4>
+
+              <!-- Visual Dynamic Balance Scale -->
+              <div class="flex items-center gap-2 bg-slate-900/80 px-3 py-1 rounded-lg border border-slate-800">
+                <span class="text-[11px] text-sky-400 font-bold">პირდაპირი (v₁)</span>
+                <div class="w-16 h-2 bg-slate-700 rounded-full relative flex items-center justify-center">
+                  <div id="balanceBeamElem" class="balance-beam w-14 h-1 bg-gradient-to-r from-sky-400 via-white to-emerald-400 rounded-full"></div>
+                </div>
+                <span class="text-[11px] text-emerald-400 font-bold">შებრუნებული (v₂)</span>
+              </div>
+            </div>
+
+            <!-- Gas Syringe Canvas -->
+            <div class="canvas-vessel">
+              <canvas id="equilibriumVesselCanvas"></canvas>
+            </div>
+
+            <div class="flex items-center justify-between text-[11px] text-slate-400 mt-2 px-1">
+              <span>🟤 $NO_2$ - მურა აირი (2 მოლი)</span>
+              <span>⚪ $N_2O_4$ - უფერო აირი (1 მოლი)</span>
+            </div>
+          </div>
+
+          <!-- Real-Time Le Chatelier Scientific Analysis Card -->
+          <div class="glass-panel p-5 border-l-4 border-l-emerald-500 space-y-2">
+            <h4 id="leChatelierExplTitle" class="font-bold text-sm text-white flex items-center gap-2">
+              ⚖️ ლე შატელიეს პრინციპის ანალიზი
+            </h4>
+            <div id="leChatelierExplBody" class="text-xs sm:text-sm text-slate-300 leading-relaxed space-y-2">
+              სისტემა იმყოფება სტანდარტულ დინამიკურ წონასწორობაში ($v_1 = v_2$). გამოიყენეთ მარცხენა პანელის ღილაკები ტემპერატურის, წნევის ან კონცენტრაციის შესაცვლელად და დააკვირდით შედეგს!
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ========================================== -->
+    <!-- MODULE 4: ცოდნის შემოწმება & პრაქტიკული ამოცანები -->
+    <!-- ========================================== -->
+    <section data-tab-panel="tab-quiz" class="hidden space-y-6">
+
+      <!-- Header -->
+      <div class="glass-panel p-5 flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="badge-curriculum">ფორმაციული შეფასება</span>
+            <h2 class="text-xl font-bold text-white">ცოდნის შემოწმება და რეალური სცენარები</h2>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-300">
+            გააანალიზეთ რეალურ ცხოვრებაში მიმდინარე პროცესები, გამოიყენეთ მინიშნებები და მიიღეთ მკვლევარის სერტიფიკატი!
+          </p>
+        </div>
+
+        <button id="btnQuizReset" class="btn-secondary text-xs">
+          🔄 ტესტის გადატვირთვა
+        </button>
+      </div>
+
+      <!-- Quiz Progress Bar -->
+      <div class="space-y-1.5">
+        <div class="flex justify-between text-xs text-slate-400">
+          <span id="quizProgressText">შეკითხვა 1 / 8</span>
+          <span>ესგ X კლასის სტანდარტი</span>
+        </div>
+        <div class="w-full bg-slate-800 rounded-full h-2.5 overflow-hidden">
+          <div id="quizProgressBar" class="bg-gradient-to-r from-sky-500 to-emerald-400 h-2.5 rounded-full transition-all duration-300" style="width: 0%"></div>
+        </div>
+      </div>
+
+      <!-- Active Question Container -->
+      <div id="quizActiveQuestionContainer" class="glass-panel p-6 sm:p-8 space-y-6">
+
+        <!-- Question Header & Context -->
+        <div class="space-y-3">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <span id="quizQuestionBadge" class="badge-curriculum">ტემპერატურა და სიჩქარე</span>
+            <button id="btnQuizHint" class="text-xs text-amber-400 hover:text-amber-300 flex items-center gap-1 font-semibold">
+              💡 მინიშნება (Hint)
+            </button>
+          </div>
+
+          <h3 id="quizQuestionTitle" class="text-lg sm:text-xl font-bold text-white">
+            სცენარი 1: მაცივარი და საკვების შენახვა
+          </h3>
+
+          <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-800 text-xs sm:text-sm text-slate-300 leading-relaxed">
+            <p id="quizQuestionContext">
+              ზაფხულის ცხელ დღეს ოთახის ტემპერატურაზე დატოვებული რძე ან ხორცი რამდენიმე საათში მჟავდება და ფუჭდება, ხოლო საყოფაცხოვრებო მაცივარში (+4°C-ზე) იგივე პროდუქტი რამდენიმე დღის განმავლობაში უცვლელად ინახება.
+            </p>
+          </div>
+
+          <!-- Hint Dropdown/Box -->
+          <div id="quizHintBox" class="hidden"></div>
+
+          <!-- Prompt -->
+          <p id="quizQuestionPrompt" class="text-sm sm:text-base font-semibold text-sky-300 pt-2">
+            დაჯახებათა თეორიის (Collision Theory) მიხედვით, რა არის ამ მოვლენის ძირითადი სამეცნიერო მიზეზი?
+          </p>
+        </div>
+
+        <!-- Options List -->
+        <div id="quizOptionsList" class="space-y-3">
+          <!-- Dynamically injected via quizModule.js -->
+        </div>
+
+        <!-- Instant Constructive Feedback Box -->
+        <div id="quizFeedbackBox" class="hidden"></div>
+
+        <!-- Navigation Buttons -->
+        <div class="flex items-center justify-between pt-4 border-t border-slate-800">
+          <button id="btnQuizPrev" class="btn-secondary text-xs sm:text-sm disabled:opacity-40 disabled:cursor-not-allowed">
+            ← წინა ამოცანა
+          </button>
+          <button id="btnQuizNext" class="btn-primary text-xs sm:text-sm">
+            შემდეგი ამოცანა →
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Quiz Final Results & Printable Certificate (Hidden initially) -->
+      <div id="quizResultsContainer" class="hidden"></div>
+
+      <!-- ======================================================== -->
+      <!-- NEW SECTION: რაოდენობრივი ამოცანები — მოქმედ მასათა კანონი -->
+      <!-- ======================================================== -->
+      <div class="mt-10 space-y-6">
+
+        <!-- Section Header Card -->
+        <div class="glass-panel p-6 border-l-4 border-l-amber-500 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+          <div>
+            <div class="flex items-center gap-2 mb-2">
+              <span class="badge-curriculum">📐 ქიმიური კინეტიკა • მათემატიკური მოდელირება</span>
+              <span class="text-xs font-mono text-amber-400 bg-amber-950/60 px-2.5 py-0.5 rounded-full border border-amber-500/30">
+                v = k · [A]ⁿ · [B]ᵐ
+              </span>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-1.5">
+              რაოდენობრივი ამოცანები — მოქმედ მასათა კანონი
+            </h3>
+            <p class="text-xs sm:text-sm text-slate-300 max-w-3xl leading-relaxed">
+              ჰომოგენური ქიმიური რეაქციის სიჩქარე პირდაპირპროპორციულია მორეაგირე ნივთიერებათა მოლური კონცენტრაციების ნამრავლისა, სადაც თითოეული კონცენტრაცია აყვანილია შესაბამის ხარისხში (რეაქციის რიგში): <code class="text-amber-300 font-mono">v = k · [A]ⁿ · [B]ᵐ</code>. ამოხსენით რაოდენობრივი ამოცანები და შეამოწმეთ თქვენი პასუხები!
+            </p>
+          </div>
+        </div>
+
+        <!-- Problems Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+          <!-- PROBLEM 1 CARD -->
+          <div class="glass-panel p-6 flex flex-col justify-between border border-slate-800 hover:border-sky-500/40 transition-all">
+            <div class="space-y-4">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-sky-400 bg-sky-950/60 px-3 py-1 rounded-full border border-sky-500/30">
+                  ამოცანა №1
+                </span>
+                <span class="text-xs text-slate-400 font-mono">v-ს გამოთვლა</span>
+              </div>
+
+              <h4 class="text-base font-bold text-white">
+                რეაქციის სიჩქარის გამოთვლა სიჩქარის მუდმივითა და კონცენტრაციებით
+              </h4>
+
+              <!-- Problem Statement -->
+              <div class="p-4 rounded-xl bg-slate-900/70 border border-slate-800 text-xs sm:text-sm text-slate-300 leading-relaxed space-y-2.5">
+                <p>
+                  ქიმიური რეაქციის კინეტიკური განტოლება მოქმედ მასათა კანონის მიხედვით ჩაიწერება შემდეგნაირად:
+                </p>
+                <div class="p-2.5 rounded-lg bg-slate-950/80 border border-slate-800 text-center font-mono text-sky-300 text-sm font-bold">
+                  v = k · [A]¹ · [B]²
+                </div>
+                <p class="pt-1">
+                  <strong>მოცემულია:</strong><br>
+                  • რეაქციის სიჩქარის მუდმივა: <code class="text-amber-300 font-mono">k = 0.5 ლ²/(მოლი²·წმ)</code><br>
+                  • A ნივთიერების კონცენტრაცია: <code class="text-sky-300 font-mono">[A] = 0.40 მოლი/ლ</code> (რეაქციის რიგი n = 1)<br>
+                  • B ნივთიერების კონცენტრაცია: <code class="text-emerald-300 font-mono">[B] = 0.20 მოლი/ლ</code> (რეაქციის რიგი m = 2)
+                </p>
+                <p class="text-slate-100 font-semibold pt-1 border-t border-slate-800/80">
+                  კითხვა: გამოთვალეთ მოცემული რეაქციის სიჩქარე (v) შესაბამისი ერთეულით.
+                </p>
+              </div>
+
+              <!-- Hint Note -->
+              <div class="p-3 rounded-lg bg-slate-950/40 border border-slate-800/80 text-xs text-slate-400">
+                💡 <strong>მინიშნება:</strong> ჩასვით მოცემული მნიშვნელობები პირდაპირ ფორმულაში: <code class="text-slate-300 font-mono">v = k · [A] · [B]²</code>. გაითვალისწინეთ, რომ [B] ადის კვადრატში: (0.20)² = 0.04.
+              </div>
+
+              <!-- Solution Box (Initially hidden) -->
+              <div id="solutionBox1" class="hidden p-4 rounded-xl bg-emerald-950/40 border border-emerald-500/40 text-xs sm:text-sm text-slate-200 space-y-3">
+                <div class="flex items-center gap-2 text-emerald-400 font-bold border-b border-emerald-500/20 pb-2">
+                  <span>✅ ნაბიჯ-ნაბიჯ ამოხსნა და დასაბუთება:</span>
+                </div>
+                <div class="space-y-2 text-xs leading-relaxed text-slate-300 font-sans">
+                  <div>
+                    <span class="text-emerald-300 font-bold">ნაბიჯი 1: ფორმულის ჩაწერა</span><br>
+                    მოქმედ მასათა კანონით: <code class="text-sky-300 font-mono">v = k · [A] · [B]²</code>
+                  </div>
+                  <div>
+                    <span class="text-emerald-300 font-bold">ნაბიჯი 2: რიცხვითი მონაცემების ჩასმა</span><br>
+                    <code class="text-slate-200 font-mono">v = 0.5 · (0.40) · (0.20)²</code>
+                  </div>
+                  <div>
+                    <span class="text-emerald-300 font-bold">ნაბიჯი 3: არითმეტიკული გამოთვლა</span><br>
+                    • (0.20)² = 0.04 მოლი²/ლ²<br>
+                    • 0.40 · 0.04 = 0.016 მოლი³/ლ³<br>
+                    • v = 0.5 · 0.016 = <strong>0.008 მოლი/(ლ·წმ)</strong>
+                  </div>
+                  <div class="p-2.5 rounded-lg bg-emerald-900/40 border border-emerald-500/30 text-emerald-200 font-bold text-xs">
+                    🎯 საბოლოო პასუხი: v = 0.008 მოლი/(ლ·წმ) (ან 8 × 10⁻³ მოლი/(ლ·წმ))
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Action Button -->
+            <div class="pt-4 border-t border-slate-800 mt-4">
+              <button id="btnRevealSolution1" class="w-full btn-secondary text-xs sm:text-sm py-2.5 justify-center hover:border-emerald-500/50 hover:text-emerald-300">
+                💡 ამოხსნისა და პასუხის ნახვა
+              </button>
+            </div>
+          </div>
+
+          <!-- PROBLEM 2 CARD -->
+          <div class="glass-panel p-6 flex flex-col justify-between border border-slate-800 hover:border-amber-500/40 transition-all">
+            <div class="space-y-4">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-amber-400 bg-amber-950/60 px-3 py-1 rounded-full border border-amber-500/30">
+                  ამოცანა №2
+                </span>
+                <span class="text-xs text-slate-400 font-mono">სიჩქარის ფარდობითი ცვლილება</span>
+              </div>
+
+              <h4 class="text-base font-bold text-white">
+                სიჩქარის ცვლილების გამოთვლა კონცენტრაციათა ვარიაციისას
+              </h4>
+
+              <!-- Problem Statement -->
+              <div class="p-4 rounded-xl bg-slate-900/70 border border-slate-800 text-xs sm:text-sm text-slate-300 leading-relaxed space-y-2.5">
+                <p>
+                  ჰომოგენური ქიმიური რეაქციის სიჩქარე აღიწერება მოქმედ მასათა კანონის კინეტიკური განტოლებით:
+                </p>
+                <div class="p-2.5 rounded-lg bg-slate-950/80 border border-slate-800 text-center font-mono text-amber-300 text-sm font-bold">
+                  v = k · [A]² · [B]¹
+                </div>
+                <p class="pt-1">
+                  სისტემაში შეცვალეს მორეაგირე ნივთიერებების კონცენტრაციები:<br>
+                  • A ნივთიერების კონცენტრაცია <strong>გააორმაგეს</strong> (გაიზარდა 2-ჯერ, [A]' = 2·[A])<br>
+                  • B ნივთიერების კონცენტრაცია <strong>შეამცირეს განახევრებით</strong> (შემცირდა 2-ჯერ, [B]' = 0.5·[B])
+                </p>
+                <p class="text-slate-100 font-semibold pt-1 border-t border-slate-800/80">
+                  კითხვა: მოქმედ მასათა კანონის გამოყენებით გამოთვალეთ, როგორ და რამდენჯერ შეიცვლება რეაქციის სიჩქარე?
+                </p>
+              </div>
+
+              <!-- Hint Note -->
+              <div class="p-3 rounded-lg bg-slate-950/40 border border-slate-800/80 text-xs text-slate-400">
+                💡 <strong>მინიშნება:</strong> შეადგინეთ ახალი სიჩქარის (v₂) გამოსახულება და შეაფარდეთ საწყისთან (v₁): <code class="text-slate-300 font-mono">(2·[A])² · (0.5·[B])</code>.
+              </div>
+
+              <!-- Solution Box (Initially hidden) -->
+              <div id="solutionBox2" class="hidden p-4 rounded-xl bg-amber-950/40 border border-amber-500/40 text-xs sm:text-sm text-slate-200 space-y-3">
+                <div class="flex items-center gap-2 text-amber-400 font-bold border-b border-amber-500/20 pb-2">
+                  <span>✅ ნაბიჯ-ნაბიჯ ამოხსნა და დასაბუთება:</span>
+                </div>
+                <div class="space-y-2 text-xs leading-relaxed text-slate-300 font-sans">
+                  <div>
+                    <span class="text-amber-300 font-bold">ნაბიჯი 1: საწყისი სიჩქარის ჩაწერა</span><br>
+                    საწყის პირობებში: <code class="text-slate-200 font-mono">v₁ = k · [A]² · [B]</code>
+                  </div>
+                  <div>
+                    <span class="text-amber-300 font-bold">ნაბიჯი 2: ახალი კონცენტრაციების გამოსახვა</span><br>
+                    [A]' = 2 · [A] და [B]' = 0.5 · [B].<br>
+                    ახალი სიჩქარე: <code class="text-sky-300 font-mono">v₂ = k · (2·[A])² · (0.5·[B])</code>
+                  </div>
+                  <div>
+                    <span class="text-amber-300 font-bold">ნაბიჯი 3: ალგებრული გარდაქმნა</span><br>
+                    • (2·[A])² = 4 · [A]²<br>
+                    • v₂ = k · (4 · [A]²) · (0.5 · [B])<br>
+                    • v₂ = (4 · 0.5) · (k · [A]² · [B]) = <strong>2 · (k · [A]² · [B]) = 2 · v₁</strong>
+                  </div>
+                  <div>
+                    <span class="text-amber-300 font-bold">ნაბიჯი 4: სიჩქარეების შეფარდება</span><br>
+                    v₂ / v₁ = 2.
+                  </div>
+                  <div class="p-2.5 rounded-lg bg-amber-900/40 border border-amber-500/30 text-amber-200 font-bold text-xs">
+                    🎯 საბოლოო პასუხი: რეაქციის სიჩქარე გაიზრდება 2-ჯერ (v₂ = 2·v₁)
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Action Button -->
+            <div class="pt-4 border-t border-slate-800 mt-4">
+              <button id="btnRevealSolution2" class="w-full btn-secondary text-xs sm:text-sm py-2.5 justify-center hover:border-amber-500/50 hover:text-amber-300">
+                💡 ამოხსნისა და პასუხის ნახვა
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- Laboratory Safety Modal -->
+  <div id="safetyModal" class="hidden fixed inset-0 z-50 overflow-y-auto">
+    <div id="safetyModalBackdrop" class="fixed inset-0 bg-black/75 backdrop-blur-sm transition-opacity"></div>
+    <div class="flex min-h-full items-center justify-center p-4">
+      <div class="relative glass-panel max-w-2xl w-full p-6 sm:p-8 space-y-6 border border-amber-500/30">
+        
+        <div class="flex items-center justify-between pb-4 border-b border-slate-800">
+          <div class="flex items-center gap-3">
+            <span class="text-2xl">🦺</span>
+            <div>
+              <h3 class="text-lg font-bold text-white">ლაბორატორიული უსაფრთხოების წესები</h3>
+              <p class="text-xs text-amber-400">ქიმიური ექსპერიმენტების უსაფრთხოების ესგ სტანდარტი</p>
+            </div>
+          </div>
+          <button id="btnCloseSafetyModal" class="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-slate-800 text-lg">
+            ✕
+          </button>
+        </div>
+
+        <div class="space-y-4 text-xs sm:text-sm text-slate-300">
+          <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 space-y-1">
+            <strong class="text-sky-400 flex items-center gap-1.5">
+              <span>👓</span> 1. პერსონალური დაცვის საშუალებები (PPE)
+            </strong>
+            <p>ლაბორატორიაში მუშაობისას სავალდებულოა დამცავი სათვალე, ბამბის ხალათი და ხელთათმანები. თვალებისა და კანის დაცვა ქიმიური შხეფებისგან უპირველესი პრიორიტეტია.</p>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 space-y-1">
+            <strong class="text-amber-400 flex items-center gap-1.5">
+              <span>🔥</span> 2. ეგზოთერმული რეაქციები და თერმული საფრთხე
+            </strong>
+            <p>ენერგიის სწრაფი გამოყოფისას ჭურჭელი ძლიერად ცხელდება. <em>ოქროს წესი:</em> მჟავას განზავებისას ყოველთვის მჟავა უნდა ჩაესხას წყალში წვეთ-წვეთობით მორევით და არასდროს პირიქით!</p>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 space-y-1">
+            <strong class="text-rose-400 flex items-center gap-1.5">
+              <span>💨</span> 3. ტოქსიკური აირები და გამწოვი კარადა
+            </strong>
+            <p>აზოტის დიოქსიდი ($NO_2$) წარმოადგენს მწვავე მახრჩობელა და ტოქსიკურ აირს. მისი მიღება და მასზე ექსპერიმენტები ნებადართულია მხოლოდ გამართულ <strong>გამწოვ კარადაში</strong>.</p>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 space-y-1">
+            <strong class="text-emerald-400 flex items-center gap-1.5">
+              <span>🔒</span> 4. არასრულწლოვანთა ციფრული ეთიკა და კონფიდენციალურობა
+            </strong>
+            <p>ეს საგანმანათლებლო პლატფორმა შექმნილია არასრულწლოვანთა პერსონალური მონაცემების დაცვის კანონმდებლობის სრული დაცვით. არ ხდება მოსწავლის მონაცემების გარე სერვერებზე შეგროვება ან გადაცემა.</p>
+          </div>
+        </div>
+
+        <div class="pt-4 border-t border-slate-800 flex justify-end">
+          <button onclick="document.getElementById('safetyModal').classList.add('hidden')" class="btn-primary text-xs">
+            გასაგებია, მესმის წესები
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-800 bg-slate-900/40 py-6 px-4 mt-auto">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-400 text-center md:text-left">
+      <div class="space-y-1">
+        <p class="font-medium text-slate-300">
+          სასწავლო ვებ-აპლიკაცია: „ქიმიური რეაქციის სიჩქარე და ქიმიური წონასწორობა“ (X კლასი)
+        </p>
+        <p class="text-slate-500 text-[11px]">
+          შექმნილია საგანმანათლებლო მიზნებისთვის საქართველოს ეროვნული სასწავლო გეგმის (ესგ) მოთხოვნათა შესაბამისად.
+        </p>
+      </div>
+
+      <div class="text-slate-500 text-[11px] max-w-md">
+        დაცულია არასრულწლოვანთა პერსონალური მონაცემების უსაფრთხოების ნორმები. აპლიკაცია მუშაობს ლოკალურად და არ აგროვებს პირად ინფორმაციას.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/collisionTheory.js"></script>
+  <script src="js/reactionSimulator.js"></script>
+  <script src="js/leChatelierLab.js"></script>
+  <script src="js/quizModule.js"></script>
+  <script src="js/safetyGuide.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
