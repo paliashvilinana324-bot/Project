@@ -1,3 +1,0 @@
-@echo off
-echo Starting Chemical Kinetics and Equilibrium Laboratory...
-start "" "%~dp0index.html"
